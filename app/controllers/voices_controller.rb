@@ -1,6 +1,7 @@
 class VoicesController < ApplicationController
   before_action :set_voice, only: [:edit, :show]
-  before_action :move_to_index, except: [:index, :show]
+  before_action :move_to_index, except: [:index, :show, :search]
+
   
   def index 
     @voices = Voice.includes(:user).order("created_at DESC")
@@ -31,6 +32,11 @@ class VoicesController < ApplicationController
     voice = Voice.find(params[:id])
     voice = update(voice_params)
   end
+
+  def search
+    @voices = Voice.search(params[:keyword])
+  end
+
 
 
 
