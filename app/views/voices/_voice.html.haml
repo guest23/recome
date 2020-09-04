@@ -1,0 +1,15 @@
+.content_post{:style => "background-image: url(#{voice.image});"}
+  .more
+    %span= image_tag 'arrow_top.png'
+    %ul.more_list
+      %li
+        = link_to '詳細', voice_path(voice.id), method: :get
+      - if user_signed_in? && current_user.id == voice.user_id
+        %li
+          = link_to '編集', edit_voice_path(voice.id), method: :get
+        %li
+          = link_to '削除', voice_path(voice.id), method: :delete
+  %p= voice.text
+  %span.name
+    \%&gt;
+    \%&gt; %&gt;
