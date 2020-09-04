@@ -11,5 +11,6 @@
           = link_to '削除', voice_path(voice.id), method: :delete
   %p= voice.text
   %span.name
-    \%&gt;
-    \%&gt; %&gt;
+    %a{:href => "/users/#{voice.user.id}"}
+      %span 投稿者
+      = voice.user.nickname
