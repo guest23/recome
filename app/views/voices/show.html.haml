@@ -1,0 +1,30 @@
+.contents.row
+  .content_post{:style => "background-image: url(#{@voice.image});"}
+    - if user_signed_in? && current_user.id == @voice.user_id
+      .more
+        %span= image_tag 'arrow_top.png'
+        %ul.more_list
+          %li
+            = link_to '編集', edit_voice_path(@voice.id), method: :get
+          %li
+            = link_to '削除', voice_path(@voice.id), method: :delete
+    %p= @voice.text
+    %span.name
+      %a{:href => "/users/#{@voice.name}"}
+        %span 投稿者
+        = @voice.user.nickname
+  .container
+    - if current_user
+      = form_with(model: [@voice, @comment], local: true) do |form|
+        = form.text_area :text, placeholder: "コメントする", rows: "2"
+        = form.submit "SEND"
+    - else
+      %strong
+        %p ※※※ コメントの投稿には新規登録/ログインが必要です ※※※
+    .comments
+      %h4 ＜コメント一覧＞
+      - if @comments
+        - @comments.each do |comment|
+          %p
+            %strong= link_to comment.user.nickname, "/users/#{comment.user_id}"
+            = comment.text

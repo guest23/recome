@@ -3,7 +3,7 @@ class VoicesController < ApplicationController
   before_action :move_to_index, except: [:index, :show]
   
   def index 
-    @voices = Voice.all
+    @voices = Voice.includes(:user).order("created_at DESC")
   end
   def new
     @voice = Voice.new
@@ -14,7 +14,8 @@ class VoicesController < ApplicationController
   end
 
   def show
-    @voice = Voice.find(params[:id])
+    @comment = Comment.new
+    @comments = @voice.comments.includes(:user)
   end
 
   def destroy
@@ -36,7 +37,7 @@ class VoicesController < ApplicationController
 
   private
   def voice_params
-    params.require(:voice).permit(:name, :image, :text)
+    params.require(:voice).permit(:image, :text).merge(user_id: current_user.id)
   end
 
   def set_voice

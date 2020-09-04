@@ -1,0 +1,6 @@
+.contents.row
+  %p
+    = @nickname
+    さんの投稿一覧
+  - @voices.each do |voice|
+    = render partial: "voices/voice", locals: { voice: voice }
