@@ -7,11 +7,11 @@
         = f.label :nickname
         %em (8 characters maximum)
         %br/
-        = f.text_field :nickname, autofocus: true, maxlength: "8"
       .field
         = f.label :email
         %br/
         = f.email_field :email
+        = f.text_field :nickname, autofocus: true
       .field
         = f.label :password
         - if @minimum_password_length
